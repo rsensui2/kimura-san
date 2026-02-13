@@ -4,9 +4,9 @@
 
 ## ポータルページ
 
-**[ポータルページ（index.html）](./index.html)** からすべての資料にアクセスできます。
+**[https://rsensui2.github.io/kimura-san/](https://rsensui2.github.io/kimura-san/)** からすべての資料にアクセスできます。
 
-GitHub Pages で公開している場合は、トップページがポータルになります。
+GitHub Pages で公開済みです。
 
 ## 構成
 
