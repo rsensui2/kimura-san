@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GMAP試験対策問題集アプリ - モック</title>
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #818CF8;
+      --primary-dark: #3730A3;
+      --primary-bg: #EEF2FF;
+      --success: #10B981;
+      --success-bg: #D1FAE5;
+      --danger: #EF4444;
+      --danger-bg: #FEE2E2;
+      --warning: #F59E0B;
+      --warning-bg: #FEF3C7;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-300: #D1D5DB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #1a1a2e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== Phone Frame ===== */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: #fff;
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 
+        0 0 0 2px #333,
+        0 0 0 5px #1a1a1a,
+        0 0 0 7px #333,
+        0 25px 50px rgba(0,0,0,0.5);
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 30px;
+      background: #000;
+      border-radius: 0 0 20px 20px;
+      z-index: 100;
+    }
+
+    .phone-notch::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 6px;
+      background: #333;
+      border-radius: 3px;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      background: var(--gray-50);
+    }
+
+    /* ===== Status Bar ===== */
+    .status-bar {
+      height: 50px;
+      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 24px 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #000;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+    }
+
+    .status-bar.light {
+      color: #fff;
+    }
+
+    .status-bar-right {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    /* ===== Screen System ===== */
+    .screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: translateX(30px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .screen.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .screen.slide-out-left {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    /* ===== Splash Screen ===== */
+    #splash {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A855F7 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .splash-icon {
+      width: 100px;
+      height: 100px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 48px;
+      margin-bottom: 24px;
+      animation: splashBounce 1s ease-out;
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes splashBounce {
+      0% { transform: scale(0.3); opacity: 0; }
+      60% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .splash-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    .splash-subtitle {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-top: 8px;
+      animation: fadeInUp 0.8s ease-out 0.5s both;
+    }
+
+    .splash-loader {
+      margin-top: 48px;
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Home Screen ===== */
+    #home {
+      background: var(--gray-50);
+    }
+
+    .home-header {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      padding: 60px 24px 32px;
+      color: #fff;
+      border-radius: 0 0 24px 24px;
+    }
+
+    .home-greeting {
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .home-name {
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .home-stats {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    .home-body {
+      padding: 24px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 12px;
+    }
+
+    .daily-card {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .daily-card:active {
+      transform: scale(0.97);
+    }
+
+    .daily-icon {
+      font-size: 40px;
+    }
+
+    .daily-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+
+    .daily-content p {
+      font-size: 12px;
+      color: var(--gray-600);
+      margin-top: 4px;
+    }
+
+    .daily-badge {
+      margin-left: auto;
+      background: var(--warning);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ===== Category Cards ===== */
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .category-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    .category-card:active {
+      transform: scale(0.97);
+      box-shadow: var(--shadow-md);
+    }
+
+    .category-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .category-info {
+      flex: 1;
+    }
+
+    .category-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .category-meta {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-top: 3px;
+    }
+
+    .category-progress {
+      width: 100%;
+      height: 4px;
+      background: var(--gray-200);
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .category-progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+
+    .category-arrow {
+      color: var(--gray-400);
+      font-size: 18px;
+    }
+
+    /* ===== Quiz Setup Screen ===== */
+    #quiz-setup {
+      background: var(--gray-50);
+    }
+
+    .screen-header {
+      display: flex;
+      align-items: center;
+      padding: 56px 16px 16px;
+      gap: 8px;
+    }
+
+    .back-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: var(--gray-100);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .back-btn:active {
+      background: var(--gray-200);
+    }
+
+    .screen-header-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .setup-body {
+      padding: 8px 24px 24px;
+    }
+
+    .setup-category-header {
+      text-align: center;
+      padding: 16px 0 24px;
+    }
+
+    .setup-category-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      margin: 0 auto 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+    }
+
+    .setup-category-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+
+    .setup-category-desc {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-top: 6px;
+    }
+
+    .setup-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .setup-option {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .setup-option-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 10px;
+    }
+
+    .option-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .option-chip {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--gray-200);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-chip.selected {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .start-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .start-btn:active {
+      background: var(--primary-dark);
+      transform: scale(0.98);
+    }
+
+    /* ===== Quiz Screen ===== */
+    #quiz {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .quiz-header {
+      padding: 56px 20px 12px;
+      background: #fff;
+      border-bottom: 1px solid var(--gray-100);
+      flex-shrink: 0;
+    }
+
+    .quiz-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .quiz-progress-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-500);
+    }
+
+    .quiz-timer {
+      font-size: 13px;
+      color: var(--gray-500);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .quiz-progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--gray-100);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--gray-100);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .quiz-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .question-category-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-bg);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .question-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-800);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .answer-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .answer-option {
+      padding: 14px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #fff;
+    }
+
+    .answer-option:active {
+      transform: scale(0.98);
+    }
+
+    .answer-option.selected {
+      border-color: var(--primary);
+      background: var(--primary-bg);
+      color: var(--primary-dark);
+    }
+
+    .answer-option.correct {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: #065F46;
+    }
+
+    .answer-option.incorrect {
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      color: #991B1B;
+    }
+
+    .answer-label {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .answer-option.selected .answer-label {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .answer-option.correct .answer-label {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .answer-option.incorrect .answer-label {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .quiz-footer {
+      padding: 16px 20px;
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      background: #fff;
+      border-top: 1px solid var(--gray-100);
+      flex-shrink: 0;
+    }
+
+    .next-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .next-btn.primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .next-btn.primary:active {
+      background: var(--primary-dark);
+    }
+
+    .next-btn:disabled {
+      background: var(--gray-200);
+      color: var(--gray-400);
+      cursor: not-allowed;
+    }
+
+    /* ===== Answer Feedback ===== */
+    .feedback-banner {
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      margin-top: 16px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    .feedback-banner.show {
+      display: flex;
+    }
+
+    .feedback-banner.correct {
+      background: var(--success-bg);
+      color: #065F46;
+    }
+
+    .feedback-banner.incorrect {
+      background: var(--danger-bg);
+      color: #991B1B;
+    }
+
+    .feedback-icon {
+      font-size: 24px;
+    }
+
+    .feedback-text {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ===== Result Screen ===== */
+    #result {
+      background: var(--gray-50);
+    }
+
+    .result-header {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      padding: 60px 24px 40px;
+      text-align: center;
+      color: #fff;
+      border-radius: 0 0 32px 32px;
+    }
+
+    .result-emoji {
+      font-size: 56px;
+      margin-bottom: 12px;
+      animation: splashBounce 0.6s ease-out;
+    }
+
+    .result-title {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .result-score {
+      font-size: 48px;
+      font-weight: 800;
+      margin: 12px 0 4px;
+    }
+
+    .result-score-label {
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .result-body {
+      padding: 24px;
+    }
+
+    .result-stats {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .result-stat {
+      flex: 1;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .result-stat-value {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .result-stat-value.correct-color { color: var(--success); }
+    .result-stat-value.incorrect-color { color: var(--danger); }
+    .result-stat-value.time-color { color: var(--primary); }
+
+    .result-stat-label {
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-top: 4px;
+    }
+
+    .result-questions-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 12px;
+    }
+
+    .result-question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .result-question-item {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .result-question-item:active {
+      transform: scale(0.98);
+    }
+
+    .rq-status {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .rq-status.correct {
+      background: var(--success-bg);
+    }
+
+    .rq-status.incorrect {
+      background: var(--danger-bg);
+    }
+
+    .rq-text {
+      flex: 1;
+      font-size: 13px;
+      color: var(--gray-700);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .rq-arrow {
+      color: var(--gray-400);
+      font-size: 16px;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 40px;
+    }
+
+    .result-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      border: none;
+    }
+
+    .result-btn.primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .result-btn.secondary {
+      background: #fff;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .result-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* ===== Explanation Screen ===== */
+    #explanation {
+      background: #fff;
+    }
+
+    .explain-body {
+      padding: 8px 20px 40px;
+    }
+
+    .explain-question-nav {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding: 4px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .explain-question-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .explain-nav-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .explain-nav-dot.correct {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .explain-nav-dot.incorrect {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .explain-nav-dot.active {
+      transform: scale(1.15);
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    .explain-question-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-800);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      padding: 16px;
+      background: var(--gray-50);
+      border-radius: var(--radius);
+    }
+
+    .explain-answer-status {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .explain-status-item {
+      flex: 1;
+      padding: 12px;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .explain-status-item.your-answer {
+      background: var(--danger-bg);
+    }
+
+    .explain-status-item.your-answer.correct-answer-match {
+      background: var(--success-bg);
+    }
+
+    .explain-status-item.correct-answer {
+      background: var(--success-bg);
+    }
+
+    .explain-status-label {
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-bottom: 4px;
+    }
+
+    .explain-status-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .explain-detail {
+      background: var(--gray-50);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .explain-detail-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .explain-detail-text {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+
+    .explain-keyword {
+      display: inline-block;
+      background: var(--primary-bg);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin: 4px 4px 4px 0;
+    }
+
+    .explain-footer {
+      display: flex;
+      gap: 10px;
+      padding: 16px 20px;
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .explain-footer-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: var(--radius);
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .explain-footer-btn.prev {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+
+    .explain-footer-btn.next {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .explain-footer-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ===== Bottom Nav ===== */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: #fff;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      padding-top: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: color 0.2s;
+      border: none;
+      background: none;
+      padding: 4px 12px;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item-icon {
+      font-size: 22px;
+    }
+
+    /* ===== Utility ===== */
+    .scroll-content {
+      padding-bottom: 80px;
+    }
+
+    /* ===== Mobile responsive ===== */
+    @media (max-width: 420px) {
+      body {
+        padding: 0;
+        background: #fff;
+      }
+      .phone-frame {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .phone-notch {
+        display: none;
+      }
+    }
+
+    /* ===== Confetti ===== */
+    .confetti-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 50;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      animation: confettiFall 3s ease-in-out forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(800px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <!-- Status Bar -->
+    <div class="status-bar" id="statusBar">
+      <span>9:41</span>
+      <div class="status-bar-right">
+        <span>📶</span>
+        <span>🔋</span>
+      </div>
+    </div>
+
+    <!-- ============ SPLASH SCREEN ============ -->
+    <div class="screen active" id="splash">
+      <div class="splash-icon">📚</div>
+      <div class="splash-title">GMAP対策</div>
+      <div class="splash-subtitle">いつでも、どこでも、効率的に学習</div>
+      <div class="splash-loader"></div>
+    </div>
+
+    <!-- ============ HOME SCREEN ============ -->
+    <div class="screen" id="home">
+      <div class="home-header">
+        <div class="home-greeting">おかえりなさい 👋</div>
+        <div class="home-name">学習者さん</div>
+        <div class="home-stats">
+          <div class="stat-card">
+            <div class="stat-value">🔥 7</div>
+            <div class="stat-label">連続学習日数</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">42</div>
+            <div class="stat-label">解答済み</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">76%</div>
+            <div class="stat-label">正答率</div>
+          </div>
+        </div>
+      </div>
+      <div class="home-body scroll-content">
+        <div class="daily-card" onclick="startDaily()">
+          <div class="daily-icon">⚡</div>
+          <div class="daily-content">
+            <h3>今日のチャレンジ</h3>
+            <p>5問のクイックテスト</p>
+          </div>
+          <div class="daily-badge">NEW</div>
+        </div>
+
+        <div class="section-title">分野別問題集</div>
+        <div class="category-list" id="categoryList"></div>
+      </div>
+      <div class="bottom-nav">
+        <button class="nav-item active">
+          <span class="nav-item-icon">🏠</span>
+          <span>ホーム</span>
+        </button>
+        <button class="nav-item">
+          <span class="nav-item-icon">📊</span>
+          <span>成績</span>
+        </button>
+        <button class="nav-item">
+          <span class="nav-item-icon">📖</span>
+          <span>復習</span>
+        </button>
+        <button class="nav-item">
+          <span class="nav-item-icon">⚙️</span>
+          <span>設定</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ QUIZ SETUP SCREEN ============ -->
+    <div class="screen" id="quiz-setup">
+      <div class="screen-header">
+        <button class="back-btn" onclick="navigateTo('home')">←</button>
+        <span class="screen-header-title">問題集を選択</span>
+      </div>
+      <div class="setup-body">
+        <div class="setup-category-header">
+          <div class="setup-category-icon" id="setupCategoryIcon"></div>
+          <div class="setup-category-name" id="setupCategoryName"></div>
+          <div class="setup-category-desc" id="setupCategoryDesc"></div>
+        </div>
+        <div class="setup-options">
+          <div class="setup-option">
+            <div class="setup-option-title">出題数</div>
+            <div class="option-chips">
+              <div class="option-chip selected" data-count="5">5問</div>
+              <div class="option-chip" data-count="10">10問</div>
+              <div class="option-chip" data-count="all">全問</div>
+            </div>
+          </div>
+          <div class="setup-option">
+            <div class="setup-option-title">出題モード</div>
+            <div class="option-chips">
+              <div class="option-chip selected">順番通り</div>
+              <div class="option-chip">ランダム</div>
+              <div class="option-chip">苦手のみ</div>
+            </div>
+          </div>
+        </div>
+        <button class="start-btn" onclick="startQuiz()">学習を開始する</button>
+      </div>
+    </div>
+
+    <!-- ============ QUIZ SCREEN ============ -->
+    <div class="screen" id="quiz">
+      <div class="quiz-header">
+        <div class="quiz-top-row">
+          <span class="quiz-progress-text" id="quizProgressText">問題 1 / 5</span>
+          <div class="quiz-timer" id="quizTimer">⏱ 0:00</div>
+          <button class="quiz-close-btn" onclick="confirmQuit()">✕</button>
+        </div>
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quizProgressFill" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="quiz-body" id="quizBody">
+        <div class="question-category-tag" id="questionCategoryTag"></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="answer-options" id="answerOptions"></div>
+        <div class="feedback-banner" id="feedbackBanner">
+          <span class="feedback-icon" id="feedbackIcon"></span>
+          <span class="feedback-text" id="feedbackText"></span>
+        </div>
+      </div>
+      <div class="quiz-footer">
+        <button class="next-btn primary" id="nextBtn" onclick="nextQuestion()" disabled>
+          次の問題へ
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ RESULT SCREEN ============ -->
+    <div class="screen" id="result">
+      <div class="result-header">
+        <div class="result-emoji" id="resultEmoji">🎉</div>
+        <div class="result-title" id="resultTitle">すばらしい！</div>
+        <div class="result-score" id="resultScore">80%</div>
+        <div class="result-score-label" id="resultScoreLabel">4 / 5 問正解</div>
+      </div>
+      <div class="result-body scroll-content" style="padding-bottom: 40px;">
+        <div class="result-stats">
+          <div class="result-stat">
+            <div class="result-stat-value correct-color" id="resultCorrectCount">4</div>
+            <div class="result-stat-label">正解</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-stat-value incorrect-color" id="resultIncorrectCount">1</div>
+            <div class="result-stat-label">不正解</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-stat-value time-color" id="resultTime">2:34</div>
+            <div class="result-stat-label">所要時間</div>
+          </div>
+        </div>
+        <div class="result-questions-title">問題別の結果</div>
+        <div class="result-question-list" id="resultQuestionList"></div>
+        <div class="result-actions">
+          <button class="result-btn primary" onclick="showExplanation(0)">解説を見る</button>
+          <button class="result-btn secondary" onclick="navigateTo('home')">ホームに戻る</button>
+        </div>
+      </div>
+      <div class="confetti-container" id="confettiContainer"></div>
+    </div>
+
+    <!-- ============ EXPLANATION SCREEN ============ -->
+    <div class="screen" id="explanation">
+      <div class="screen-header">
+        <button class="back-btn" onclick="navigateTo('result')">←</button>
+        <span class="screen-header-title">解説</span>
+      </div>
+      <div class="explain-body" id="explainBody">
+        <div class="explain-question-nav" id="explainNav"></div>
+        <div id="explainContent"></div>
+      </div>
+      <div class="explain-footer">
+        <button class="explain-footer-btn prev" id="explainPrevBtn" onclick="navigateExplanation(-1)">← 前の問題</button>
+        <button class="explain-footer-btn next" id="explainNextBtn" onclick="navigateExplanation(1)">次の問題 →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ===== DATA =====
+  const categories = [
+    {
+      id: 'marketing',
+      name: 'マーケティング',
+      icon: '📣',
+      color: '#EF4444',
+      bgColor: '#FEE2E2',
+      desc: 'マーケティング戦略・4P・STP分析など',
+      progress: 60,
+      totalQuestions: 15,
+      questions: [
+        {
+          text: 'STP分析の「S」が示すものとして正しいのはどれか。',
+          options: ['セグメンテーション', 'ストラテジー', 'セールス', 'サプライ'],
+          correct: 0,
+          explanation: 'STP分析はマーケティング戦略の基本フレームワークで、S（Segmentation：市場細分化）、T（Targeting：標的市場の選定）、P（Positioning：ポジショニング）の3つのステップから構成されます。セグメンテーションでは、市場を顧客の属性やニーズに基づいて細分化し、同質的なグループに分けます。',
+          keywords: ['セグメンテーション', 'ターゲティング', 'ポジショニング', '市場細分化']
+        },
+        {
+          text: 'マーケティング・ミックスの4Pに含まれないものはどれか。',
+          options: ['Product（製品）', 'Price（価格）', 'People（人材）', 'Promotion（販促）'],
+          correct: 2,
+          explanation: 'マーケティング・ミックスの4Pは、Product（製品）、Price（価格）、Place（流通）、Promotion（販促）の4つです。People（人材）は4Pには含まれませんが、サービス・マーケティングの7Pの一つとして拡張されています。4Pは企業が統制可能なマーケティング手段を体系的に整理したフレームワークです。',
+          keywords: ['4P', 'Product', 'Price', 'Place', 'Promotion']
+        },
+        {
+          text: 'プロダクト・ライフサイクルにおいて、売上が最も大きくなるのはどの段階か。',
+          options: ['導入期', '成長期', '成熟期', '衰退期'],
+          correct: 2,
+          explanation: '成熟期は市場が飽和に達し、売上高が最大となる段階です。ただし、成長率は鈍化し、競争が激化するため、差別化戦略やコスト削減が重要になります。導入期は認知度が低く売上は少なく、成長期は急速に拡大し、衰退期は需要が減少します。',
+          keywords: ['プロダクト・ライフサイクル', '成熟期', '導入期', '成長期', '衰退期']
+        },
+        {
+          text: 'ブランドエクイティの構成要素として適切でないものはどれか。',
+          options: ['ブランド認知', 'ブランドロイヤルティ', 'ブランド連想', 'ブランドコスト'],
+          correct: 3,
+          explanation: 'アーカーのブランドエクイティモデルでは、ブランド認知、ブランドロイヤルティ、知覚品質、ブランド連想、その他の資産（特許など）が構成要素とされています。「ブランドコスト」という概念はブランドエクイティの構成要素には含まれません。',
+          keywords: ['ブランドエクイティ', 'アーカー', 'ブランド認知', 'ロイヤルティ']
+        },
+        {
+          text: 'AIDMA（アイドマ）モデルの「D」は何を意味するか。',
+          options: ['Decision（決定）', 'Desire（欲求）', 'Demand（需要）', 'Distribution（流通）'],
+          correct: 1,
+          explanation: 'AIDMAモデルは消費者の購買行動プロセスを表すフレームワークです。A（Attention：注意）→ I（Interest：関心）→ D（Desire：欲求）→ M（Memory：記憶）→ A（Action：行動）の5段階で構成されます。消費者が商品に注意を向け、関心を持ち、欲しいと感じ、記憶し、購買行動に至るプロセスを示しています。',
+          keywords: ['AIDMA', '購買行動', 'Desire', '欲求']
+        }
+      ]
+    },
+    {
+      id: 'strategy',
+      name: '経営戦略',
+      icon: '♟️',
+      color: '#3B82F6',
+      bgColor: '#DBEAFE',
+      desc: 'SWOT分析・ファイブフォース・PPMなど',
+      progress: 30,
+      totalQuestions: 15,
+      questions: [
+        {
+          text: 'マイケル・ポーターの「5つの競争要因（ファイブフォース）」に含まれないものはどれか。',
+          options: ['既存企業間の競争', '新規参入の脅威', '政府の規制', '代替品の脅威'],
+          correct: 2,
+          explanation: 'ポーターのファイブフォースは、①既存企業間の競争、②新規参入の脅威、③代替品の脅威、④買い手の交渉力、⑤売り手の交渉力の5つです。「政府の規制」は外部環境の要因ですが、5つの競争要因には直接含まれません。',
+          keywords: ['ファイブフォース', 'ポーター', '競争戦略', '業界分析']
+        },
+        {
+          text: 'PPM（プロダクト・ポートフォリオ・マトリクス）で、市場成長率が高く、相対的市場シェアも高い事業を何と呼ぶか。',
+          options: ['花形（Star）', '金のなる木（Cash Cow）', '問題児（Question Mark）', '負け犬（Dog）'],
+          correct: 0,
+          explanation: 'PPMはBCG（ボストン・コンサルティング・グループ）が開発したフレームワークで、市場成長率と相対的市場シェアの2軸で事業を分類します。花形（Star）は両方が高く、積極的投資が必要です。金のなる木は成長率低・シェア高で安定収益源、問題児は成長率高・シェア低で投資判断が必要、負け犬は両方低く撤退検討対象です。',
+          keywords: ['PPM', 'BCG', '花形', '金のなる木', '問題児', '負け犬']
+        },
+        {
+          text: 'SWOT分析の「O」が示すものはどれか。',
+          options: ['組織（Organization）', '機会（Opportunity）', '運営（Operation）', '最適化（Optimization）'],
+          correct: 1,
+          explanation: 'SWOT分析は、内部環境のS（Strengths：強み）とW（Weaknesses：弱み）、外部環境のO（Opportunities：機会）とT（Threats：脅威）を整理するフレームワークです。機会（Opportunity）は外部環境における好ましい要因を指し、戦略立案の基盤となります。',
+          keywords: ['SWOT', '機会', '強み', '弱み', '脅威']
+        },
+        {
+          text: 'アンゾフの成長マトリクスで「既存市場×新製品」の戦略を何と呼ぶか。',
+          options: ['市場浸透', '市場開拓', '製品開発', '多角化'],
+          correct: 2,
+          explanation: 'アンゾフの成長マトリクスは、市場（既存/新規）と製品（既存/新規）の2軸で成長戦略を4つに分類します。市場浸透（既存×既存）、製品開発（既存市場×新製品）、市場開拓（新市場×既存製品）、多角化（新市場×新製品）です。製品開発戦略は既存顧客に新しい製品を提供する戦略です。',
+          keywords: ['アンゾフ', '成長マトリクス', '製品開発', '市場浸透']
+        },
+        {
+          text: 'バリューチェーン分析における「支援活動」に該当するのはどれか。',
+          options: ['製造', '出荷物流', '人事・労務管理', 'マーケティング・販売'],
+          correct: 2,
+          explanation: 'ポーターのバリューチェーンでは、企業活動を「主活動」と「支援活動」に分けます。主活動は購買物流、製造、出荷物流、マーケティング・販売、サービスの5つです。支援活動は全般管理（インフラ）、人事・労務管理、技術開発、調達の4つで、主活動を横断的にサポートする機能です。',
+          keywords: ['バリューチェーン', '支援活動', '主活動', 'ポーター']
+        }
+      ]
+    },
+    {
+      id: 'finance',
+      name: 'ファイナンス',
+      icon: '💰',
+      color: '#10B981',
+      bgColor: '#D1FAE5',
+      desc: 'NPV・ROE・財務分析・投資判断など',
+      progress: 15,
+      totalQuestions: 15,
+      questions: [
+        {
+          text: 'NPV（正味現在価値）がプラスの場合、投資判断としてどう考えるべきか。',
+          options: ['投資を見送る', '投資を実行する', '追加情報を待つ', '他の投資と比較できない'],
+          correct: 1,
+          explanation: 'NPV（Net Present Value）は、投資から得られる将来キャッシュフローの現在価値合計から初期投資額を差し引いた値です。NPVがプラスであれば、投資により企業価値が増加することを意味し、投資を実行すべきと判断します。NPVが高いほど投資の魅力度が高いと評価されます。',
+          keywords: ['NPV', '正味現在価値', '投資判断', 'キャッシュフロー']
+        },
+        {
+          text: 'ROE（自己資本利益率）を求める計算式として正しいものはどれか。',
+          options: ['当期純利益 ÷ 総資産', '当期純利益 ÷ 自己資本', '営業利益 ÷ 売上高', '経常利益 ÷ 総資産'],
+          correct: 1,
+          explanation: 'ROE（Return on Equity）は「当期純利益 ÷ 自己資本 × 100」で算出されます。株主が出資した資本に対してどれだけ効率的に利益を生み出しているかを示す指標です。デュポン分析では、ROE = 売上高利益率 × 総資産回転率 × 財務レバレッジに分解して分析できます。',
+          keywords: ['ROE', '自己資本利益率', 'デュポン分析', '財務指標']
+        },
+        {
+          text: '「資本コスト」の説明として最も適切なのはどれか。',
+          options: ['設備投資に必要な資金', '株式発行にかかる手数料', '資金提供者が要求する最低限の収益率', '減価償却費の総額'],
+          correct: 2,
+          explanation: '資本コスト（Cost of Capital）は、企業が資金を調達する際に、資金提供者（株主や債権者）が要求する最低限の収益率です。WACC（加重平均資本コスト）として算出されることが多く、投資判断のハードルレートとして使われます。NPVの割引率としても利用されます。',
+          keywords: ['資本コスト', 'WACC', '割引率', 'ハードルレート']
+        },
+        {
+          text: '損益分岐点売上高を求める式として正しいのはどれか。',
+          options: ['固定費 ÷ 変動費率', '固定費 ÷ (1 - 変動費率)', '変動費 ÷ 固定費率', '(固定費 + 変動費) ÷ 2'],
+          correct: 1,
+          explanation: '損益分岐点売上高は「固定費 ÷ (1 - 変動費率)」で求められます。変動費率 = 変動費 ÷ 売上高 であり、(1 - 変動費率) は限界利益率（貢献利益率）を意味します。損益分岐点は利益がゼロとなる売上水準であり、経営の安全性を評価する重要な指標です。',
+          keywords: ['損益分岐点', '固定費', '変動費率', '限界利益率']
+        },
+        {
+          text: 'フリーキャッシュフロー（FCF）の計算で正しいものはどれか。',
+          options: ['売上高 - 売上原価', '営業利益 + 減価償却費 - 設備投資 - 運転資本増加額', '当期純利益 + 配当金', '経常利益 - 法人税'],
+          correct: 1,
+          explanation: 'フリーキャッシュフロー（FCF）は、企業が事業活動から生み出す自由に使えるキャッシュフローです。「営業利益×(1-税率) + 減価償却費 - 設備投資 - 運転資本増加額」で計算されます。企業価値評価（DCF法）の基礎となる重要な指標です。',
+          keywords: ['FCF', 'フリーキャッシュフロー', 'DCF', '企業価値']
+        }
+      ]
+    },
+    {
+      id: 'hr',
+      name: '人的資源管理',
+      icon: '👥',
+      color: '#8B5CF6',
+      bgColor: '#EDE9FE',
+      desc: 'モチベーション理論・リーダーシップなど',
+      progress: 0,
+      totalQuestions: 15,
+      questions: [
+        {
+          text: 'マズローの欲求5段階説で、最も上位に位置する欲求はどれか。',
+          options: ['安全欲求', '承認欲求', '自己実現欲求', '社会的欲求'],
+          correct: 2,
+          explanation: 'マズローの欲求5段階説は、下位から①生理的欲求、②安全欲求、③社会的欲求（所属と愛の欲求）、④承認欲求（尊厳欲求）、⑤自己実現欲求の順に階層化されます。下位の欲求が満たされると上位の欲求が顕在化するとされ、自己実現欲求が最上位に位置します。',
+          keywords: ['マズロー', '欲求5段階説', '自己実現', '動機づけ理論']
+        },
+        {
+          text: 'ハーズバーグの二要因理論で「動機づけ要因」に該当するのはどれか。',
+          options: ['給与', '作業条件', '達成感', '会社の方針'],
+          correct: 2,
+          explanation: 'ハーズバーグの二要因理論では、仕事への満足に関わる「動機づけ要因」と不満足に関わる「衛生要因」を区別します。動機づけ要因には達成感、承認、仕事そのもの、責任、成長などが含まれます。給与、作業条件、会社の方針は衛生要因で、不足すると不満を生じますが、充足しても積極的な動機づけにはなりません。',
+          keywords: ['ハーズバーグ', '二要因理論', '動機づけ要因', '衛生要因']
+        },
+        {
+          text: 'マクレガーのX理論における人間観として正しいのはどれか。',
+          options: [
+            '人は本来、仕事が好きである',
+            '人は自ら目標に向かって努力する',
+            '人は生まれつき仕事が嫌いで、強制されないと働かない',
+            '人は創造性を発揮して問題解決に取り組む'
+          ],
+          correct: 2,
+          explanation: 'マクレガーのX理論は、「人は本来怠惰で、強制・統制・命令がないと働かない」という性悪説的な人間観に基づきます。一方、Y理論は「人は条件次第で自ら進んで責任を引き受け、創造性を発揮する」という性善説的な人間観です。現代の経営ではY理論に基づくマネジメントが推奨されています。',
+          keywords: ['X理論', 'Y理論', 'マクレガー', '人間観']
+        },
+        {
+          text: 'OJT（On the Job Training）の説明として正しいのはどれか。',
+          options: [
+            '外部の研修機関で行う教育訓練',
+            '職場内で上司や先輩が実務を通じて指導する教育訓練',
+            '自己啓発のために自費で行う学習',
+            'e-ラーニングによる遠隔教育'
+          ],
+          correct: 1,
+          explanation: 'OJT（On the Job Training）は、職場内で実際の業務を通じて、上司や先輩社員が部下や後輩に対して必要な知識やスキルを指導する教育訓練方法です。実践的なスキルが身につきやすく、コストが低いというメリットがあります。一方、Off-JT（Off the Job Training）は職場外で行う集合研修などを指します。',
+          keywords: ['OJT', 'Off-JT', '人材育成', '教育訓練']
+        },
+        {
+          text: '360度評価（多面評価）の説明として正しいのはどれか。',
+          options: [
+            '上司のみが部下を評価する方法',
+            '上司・同僚・部下など複数の視点から評価する方法',
+            '年に360日評価を行う方法',
+            '全社員を一斉に序列化する方法'
+          ],
+          correct: 1,
+          explanation: '360度評価は、上司だけでなく、同僚、部下、さらには取引先など、多方向（360度）から対象者を評価する手法です。多角的な視点からフィードバックが得られるため、評価の客観性・公平性が高まります。ただし、運用コストが高く、評価者の主観が入りやすいという課題もあります。',
+          keywords: ['360度評価', '多面評価', '人事評価', 'フィードバック']
+        }
+      ]
+    },
+    {
+      id: 'org',
+      name: '組織行動・リーダーシップ',
+      icon: '🏢',
+      color: '#F59E0B',
+      bgColor: '#FEF3C7',
+      desc: '組織構造・意思決定・組織文化など',
+      progress: 45,
+      totalQuestions: 15,
+      questions: [
+        {
+          text: '機能別組織の特徴として最も適切なのはどれか。',
+          options: [
+            '各事業部が独立して意思決定を行う',
+            '同じ専門機能ごとに部門を編成する',
+            'プロジェクトごとにチームを組成する',
+            '地域別に組織を分ける'
+          ],
+          correct: 1,
+          explanation: '機能別組織は、営業、製造、経理、人事など、同じ専門機能ごとに部門を編成する組織形態です。専門性の向上や規模の経済が得やすい一方、部門間の調整が難しく、セクショナリズムが生じやすいという特徴があります。事業部制組織は各事業部が独立的に運営される形態です。',
+          keywords: ['機能別組織', '事業部制', '組織構造', 'セクショナリズム']
+        },
+        {
+          text: 'マトリクス組織の最大の課題はどれか。',
+          options: [
+            '専門性が活かせない',
+            '命令系統の二重化（ツーボス問題）',
+            '環境変化に対応できない',
+            '規模の経済が得られない'
+          ],
+          correct: 1,
+          explanation: 'マトリクス組織は、機能別組織とプロジェクト型組織を組み合わせた形態で、メンバーは機能部門の上司とプロジェクトの上司の両方に報告します。この「ツーボス問題」（命令系統の二重化）が最大の課題であり、指示の矛盾や責任の曖昧さが生じることがあります。',
+          keywords: ['マトリクス組織', 'ツーボス問題', '命令系統', '組織設計']
+        },
+        {
+          text: 'リーダーシップのPM理論で「PM型」リーダーの特徴はどれか。',
+          options: [
+            '目標達成機能も集団維持機能も低い',
+            '目標達成機能が高く、集団維持機能が低い',
+            '目標達成機能も集団維持機能も高い',
+            '目標達成機能が低く、集団維持機能が高い'
+          ],
+          correct: 2,
+          explanation: 'PM理論（三隅二不二）では、リーダーシップをP機能（Performance：目標達成機能）とM機能（Maintenance：集団維持機能）の2軸で分類します。PM型は両方が高い理想的なリーダーシップスタイルです。Pm型はP優位、pM型はM優位、pm型は両方低い状態を表します。',
+          keywords: ['PM理論', '三隅二不二', 'リーダーシップ', '目標達成機能', '集団維持機能']
+        },
+        {
+          text: '組織における「暗黙知」の説明として正しいのはどれか。',
+          options: [
+            'マニュアルや文書で明示化された知識',
+            '個人の経験や直感に基づく言語化しにくい知識',
+            'データベースに蓄積された知識',
+            '法律や規制に関する知識'
+          ],
+          correct: 1,
+          explanation: '暗黙知とは、個人の経験や勘、ノウハウなどに基づく、言語化や文書化が難しい知識です。野中郁次郎のSECIモデルでは、暗黙知と形式知（明示化された知識）の相互変換を通じて組織的な知識創造が行われるとしています。共同化→表出化→連結化→内面化のプロセスで知識が変換されます。',
+          keywords: ['暗黙知', '形式知', 'SECIモデル', '野中郁次郎', '知識創造']
+        },
+        {
+          text: 'コッターの変革8段階モデルの第1段階はどれか。',
+          options: [
+            'ビジョンと戦略を生み出す',
+            '危機意識を高める',
+            '変革推進チームを作る',
+            '短期的な成果を実現する'
+          ],
+          correct: 1,
+          explanation: 'ジョン・コッターの変革8段階モデルは、①危機意識を高める、②変革推進チームを作る、③ビジョンと戦略を生み出す、④ビジョンを周知する、⑤従業員の自発的行動を促す、⑥短期的な成果を実現する、⑦成果を活かしてさらに変革を推進する、⑧新しいやり方を文化として定着させる、の8段階です。',
+          keywords: ['コッター', '変革8段階', 'チェンジマネジメント', '危機意識']
+        }
+      ]
+    }
+  ];
+
+  // ===== STATE =====
+  let currentScreen = 'splash';
+  let currentCategory = null;
+  let currentQuestions = [];
+  let currentQuestionIndex = 0;
+  let userAnswers = [];
+  let quizStartTime = null;
+  let timerInterval = null;
+  let currentExplainIndex = 0;
+
+  // ===== NAVIGATION =====
+  function navigateTo(screenId) {
+    const current = document.querySelector('.screen.active');
+    if (current) {
+      current.classList.add('slide-out-left');
+      current.classList.remove('active');
+      setTimeout(() => {
+        current.classList.remove('slide-out-left');
+      }, 350);
+    }
+
+    const next = document.getElementById(screenId);
+    setTimeout(() => {
+      next.classList.add('active');
+    }, 50);
+
+    // Update status bar color
+    const statusBar = document.getElementById('statusBar');
+    if (['splash'].includes(screenId)) {
+      statusBar.classList.add('light');
+    } else {
+      statusBar.classList.remove('light');
+    }
+
+    currentScreen = screenId;
+  }
+
+  // ===== SPLASH =====
+  setTimeout(() => {
+    navigateTo('home');
+    renderCategories();
+  }, 2500);
+
+  // ===== RENDER CATEGORIES =====
+  function renderCategories() {
+    const list = document.getElementById('categoryList');
+    list.innerHTML = categories.map(cat => `
+      <div class="category-card" onclick="openCategory('${cat.id}')">
+        <div class="category-icon" style="background: ${cat.bgColor}">
+          ${cat.icon}
+        </div>
+        <div class="category-info">
+          <div class="category-name">${cat.name}</div>
+          <div class="category-meta">${cat.totalQuestions}問 · 進捗 ${cat.progress}%</div>
+          <div class="category-progress">
+            <div class="category-progress-fill" style="width: ${cat.progress}%; background: ${cat.color}"></div>
+          </div>
+        </div>
+        <span class="category-arrow">›</span>
+      </div>
+    `).join('');
+  }
+
+  // ===== OPEN CATEGORY =====
+  function openCategory(categoryId) {
+    currentCategory = categories.find(c => c.id === categoryId);
+    document.getElementById('setupCategoryIcon').style.background = currentCategory.bgColor;
+    document.getElementById('setupCategoryIcon').textContent = currentCategory.icon;
+    document.getElementById('setupCategoryName').textContent = currentCategory.name;
+    document.getElementById('setupCategoryDesc').textContent = currentCategory.desc;
+    navigateTo('quiz-setup');
+  }
+
+  // ===== DAILY CHALLENGE =====
+  function startDaily() {
+    // Pick random questions from all categories
+    currentCategory = { name: '今日のチャレンジ', icon: '⚡', color: '#F59E0B' };
+    currentQuestions = [];
+    categories.forEach(cat => {
+      const q = cat.questions[Math.floor(Math.random() * cat.questions.length)];
+      currentQuestions.push({ ...q, categoryName: cat.name });
+    });
+    startQuizWithQuestions();
+  }
+
+  // ===== CHIP SELECTION =====
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('option-chip')) {
+      const parent = e.target.closest('.option-chips');
+      parent.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+      e.target.classList.add('selected');
+    }
+  });
+
+  // ===== START QUIZ =====
+  function startQuiz() {
+    currentQuestions = currentCategory.questions.map(q => ({ ...q, categoryName: currentCategory.name }));
+    startQuizWithQuestions();
+  }
+
+  function startQuizWithQuestions() {
+    currentQuestionIndex = 0;
+    userAnswers = [];
+    quizStartTime = Date.now();
+    startTimer();
+    renderQuestion();
+    navigateTo('quiz');
+  }
+
+  // ===== TIMER =====
+  function startTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - quizStartTime) / 1000);
+      const mins = Math.floor(elapsed / 60);
+      const secs = elapsed % 60;
+      document.getElementById('quizTimer').textContent = `⏱ ${mins}:${secs.toString().padStart(2, '0')}`;
+    }, 1000);
+  }
+
+  // ===== RENDER QUESTION =====
+  function renderQuestion() {
+    const q = currentQuestions[currentQuestionIndex];
+    const total = currentQuestions.length;
+    const progress = ((currentQuestionIndex) / total) * 100;
+
+    document.getElementById('quizProgressText').textContent = `問題 ${currentQuestionIndex + 1} / ${total}`;
+    document.getElementById('quizProgressFill').style.width = `${progress}%`;
+    document.getElementById('questionCategoryTag').textContent = q.categoryName;
+    document.getElementById('questionText').textContent = q.text;
+
+    const labels = ['A', 'B', 'C', 'D'];
+    document.getElementById('answerOptions').innerHTML = q.options.map((opt, i) => `
+      <div class="answer-option" data-index="${i}" onclick="selectAnswer(${i})">
+        <span class="answer-label">${labels[i]}</span>
+        <span>${opt}</span>
+      </div>
+    `).join('');
+
+    document.getElementById('feedbackBanner').classList.remove('show');
+    document.getElementById('feedbackBanner').className = 'feedback-banner';
+    document.getElementById('nextBtn').disabled = true;
+    document.getElementById('nextBtn').textContent = 
+      currentQuestionIndex === total - 1 ? '結果を見る' : '次の問題へ';
+
+    // Scroll to top
+    document.getElementById('quizBody').scrollTop = 0;
+  }
+
+  // ===== SELECT ANSWER =====
+  function selectAnswer(index) {
+    const q = currentQuestions[currentQuestionIndex];
+    if (userAnswers[currentQuestionIndex] !== undefined) return; // Already answered
+
+    userAnswers[currentQuestionIndex] = index;
+    const isCorrect = index === q.correct;
+
+    // Highlight answers
+    const options = document.querySelectorAll('#answerOptions .answer-option');
+    options.forEach((opt, i) => {
+      if (i === q.correct) opt.classList.add('correct');
+      if (i === index && !isCorrect) opt.classList.add('incorrect');
+      if (i === index) opt.classList.add('selected');
+    });
+
+    // Show feedback
+    const banner = document.getElementById('feedbackBanner');
+    banner.classList.add('show');
+    if (isCorrect) {
+      banner.classList.add('correct');
+      document.getElementById('feedbackIcon').textContent = '✅';
+      document.getElementById('feedbackText').textContent = '正解！よくできました！';
+    } else {
+      banner.classList.add('incorrect');
+      document.getElementById('feedbackIcon').textContent = '❌';
+      document.getElementById('feedbackText').textContent = `不正解... 正解は「${q.options[q.correct]}」`;
+    }
+
+    document.getElementById('nextBtn').disabled = false;
+  }
+
+  // ===== NEXT QUESTION =====
+  function nextQuestion() {
+    if (currentQuestionIndex < currentQuestions.length - 1) {
+      currentQuestionIndex++;
+      renderQuestion();
+    } else {
+      finishQuiz();
+    }
+  }
+
+  // ===== FINISH QUIZ =====
+  function finishQuiz() {
+    clearInterval(timerInterval);
+    const elapsed = Math.floor((Date.now() - quizStartTime) / 1000);
+    const mins = Math.floor(elapsed / 60);
+    const secs = elapsed % 60;
+    const timeStr = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+    const total = currentQuestions.length;
+    const correctCount = userAnswers.filter((a, i) => a === currentQuestions[i].correct).length;
+    const incorrectCount = total - correctCount;
+    const percentage = Math.round((correctCount / total) * 100);
+
+    // Set result data
+    let emoji, title;
+    if (percentage >= 80) { emoji = '🎉'; title = 'すばらしい！'; }
+    else if (percentage >= 60) { emoji = '👍'; title = 'よくできました！'; }
+    else if (percentage >= 40) { emoji = '💪'; title = 'もう少し頑張ろう！'; }
+    else { emoji = '📖'; title = '復習しましょう！'; }
+
+    document.getElementById('resultEmoji').textContent = emoji;
+    document.getElementById('resultTitle').textContent = title;
+    document.getElementById('resultScore').textContent = `${percentage}%`;
+    document.getElementById('resultScoreLabel').textContent = `${correctCount} / ${total} 問正解`;
+    document.getElementById('resultCorrectCount').textContent = correctCount;
+    document.getElementById('resultIncorrectCount').textContent = incorrectCount;
+    document.getElementById('resultTime').textContent = timeStr;
+
+    // Render question results
+    document.getElementById('resultQuestionList').innerHTML = currentQuestions.map((q, i) => {
+      const isCorrect = userAnswers[i] === q.correct;
+      return `
+        <div class="result-question-item" onclick="showExplanation(${i})">
+          <div class="rq-status ${isCorrect ? 'correct' : 'incorrect'}">
+            ${isCorrect ? '✅' : '❌'}
+          </div>
+          <div class="rq-text">${q.text}</div>
+          <span class="rq-arrow">›</span>
+        </div>
+      `;
+    }).join('');
+
+    navigateTo('result');
+
+    // Confetti for good score
+    if (percentage >= 60) {
+      showConfetti();
+    }
+  }
+
+  // ===== CONFETTI =====
+  function showConfetti() {
+    const container = document.getElementById('confettiContainer');
+    container.innerHTML = '';
+    const colors = ['#4F46E5', '#7C3AED', '#EF4444', '#10B981', '#F59E0B', '#EC4899'];
+    for (let i = 0; i < 40; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDelay = Math.random() * 2 + 's';
+      confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+      confetti.style.width = (6 + Math.random() * 8) + 'px';
+      confetti.style.height = (6 + Math.random() * 8) + 'px';
+      container.appendChild(confetti);
+    }
+  }
+
+  // ===== EXPLANATION =====
+  function showExplanation(index) {
+    currentExplainIndex = index;
+    renderExplanation();
+    navigateTo('explanation');
+  }
+
+  function renderExplanation() {
+    const q = currentQuestions[currentExplainIndex];
+    const userAnswer = userAnswers[currentExplainIndex];
+    const isCorrect = userAnswer === q.correct;
+    const labels = ['A', 'B', 'C', 'D'];
+
+    // Nav dots
+    document.getElementById('explainNav').innerHTML = currentQuestions.map((qq, i) => {
+      const qCorrect = userAnswers[i] === qq.correct;
+      return `<button class="explain-nav-dot ${qCorrect ? 'correct' : 'incorrect'} ${i === currentExplainIndex ? 'active' : ''}" 
+        onclick="jumpToExplanation(${i})">${i + 1}</button>`;
+    }).join('');
+
+    // Content
+    document.getElementById('explainContent').innerHTML = `
+      <div class="explain-question-text">
+        <strong>Q${currentExplainIndex + 1}.</strong> ${q.text}
+      </div>
+      <div class="explain-answer-status">
+        <div class="explain-status-item your-answer ${isCorrect ? 'correct-answer-match' : ''}">
+          <div class="explain-status-label">あなたの回答</div>
+          <div class="explain-status-value">${labels[userAnswer]}. ${q.options[userAnswer]}</div>
+        </div>
+        ${!isCorrect ? `
+        <div class="explain-status-item correct-answer">
+          <div class="explain-status-label">正解</div>
+          <div class="explain-status-value">${labels[q.correct]}. ${q.options[q.correct]}</div>
+        </div>` : ''}
+      </div>
+      <div class="explain-detail">
+        <div class="explain-detail-title">💡 解説</div>
+        <div class="explain-detail-text">${q.explanation}</div>
+      </div>
+      <div class="explain-detail" style="background: var(--primary-bg);">
+        <div class="explain-detail-title">🏷️ 関連キーワード</div>
+        <div style="margin-top: 8px;">
+          ${q.keywords.map(k => `<span class="explain-keyword">${k}</span>`).join('')}
+        </div>
+      </div>
+    `;
+
+    // Button states
+    document.getElementById('explainPrevBtn').disabled = currentExplainIndex === 0;
+    const isLast = currentExplainIndex === currentQuestions.length - 1;
+    document.getElementById('explainNextBtn').textContent = isLast ? '結果に戻る' : '次の問題 →';
+  }
+
+  function navigateExplanation(direction) {
+    if (direction === 1 && currentExplainIndex === currentQuestions.length - 1) {
+      navigateTo('result');
+      return;
+    }
+    currentExplainIndex += direction;
+    currentExplainIndex = Math.max(0, Math.min(currentExplainIndex, currentQuestions.length - 1));
+    renderExplanation();
+  }
+
+  function jumpToExplanation(index) {
+    currentExplainIndex = index;
+    renderExplanation();
+  }
+
+  // ===== CONFIRM QUIT =====
+  function confirmQuit() {
+    if (confirm('学習を中断しますか？\n途中経過は保存されません。')) {
+      clearInterval(timerInterval);
+      navigateTo('home');
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMAPアカデミー | 確かな知識を、あなたの手に</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2e7d32; /* フォレストグリーン */
+            --secondary-color: #4caf50;
+            --accent-color: #ff6f00; /* アンバー */
+            --text-color: #333333;
+            --bg-color: #ffffff;
+            --light-bg: #f1f8e9;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            padding: 15px 0;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo::before {
+            content: '🎓';
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--light-bg);
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 1px solid #c8e6c9;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #555;
+        }
+
+        .hero-sub {
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
+            color: var(--secondary-color);
+            letter-spacing: 0.05em;
+        }
+
+        .cta-btn-hero {
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 15px 45px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 0 #e65100;
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: inline-block;
+        }
+
+        .cta-btn-hero:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #e65100;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+            margin-top: 10px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            transition: box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .feature-icon-circle {
+            width: 80px;
+            height: 80px;
+            background-color: var(--light-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: var(--text-color);
+        }
+
+        /* Curriculum/Steps */
+        .steps {
+            background-color: #fff;
+            padding: 80px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .step-list {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+            counter-reset: step;
+        }
+
+        .step-item {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        .step-num {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--light-bg);
+            padding: 80px 0;
+        }
+
+        .testimonial-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #263238; /* ダークグレー */
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links a {
+            color: #b0bec5;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .step-list {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">GMAPアカデミー</div>
+            <div class="nav-links">
+                <a href="#">特徴</a>
+                <a href="#">カリキュラム</a>
+                <a href="#">料金</a>
+                <a href="#" style="color: var(--accent-color); font-weight: 700;">無料体験</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <span class="hero-sub">合格への最短カリキュラム</span>
+            <h1>学びを、もっと身近に。<br>成果を、もっと確実に。</h1>
+            <p>GMAP試験対策に特化した、オンライン学習プラットフォーム。</p>
+            <a href="#" class="cta-btn-hero">無料で学習をスタート</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">3つの学習メソッド</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-circle">📖</div>
+                    <h3>体系的な学習</h3>
+                    <p>基礎から応用まで、ステップバイステップで学べるカリキュラム設計。迷うことなく学習を進められます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-circle">✍️</div>
+                    <h3>実践的な演習</h3>
+                    <p>過去の出題傾向を徹底分析したオリジナル問題。本番さながらの形式で、実戦力を養います。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-circle">💡</div>
+                    <h3>詳細な解説</h3>
+                    <p>「なぜそうなるのか」を重視した丁寧な解説。丸暗記ではなく、本質的な理解を促します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps">
+        <div class="container">
+            <h2 class="section-title">学習の流れ</h2>
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <h3>レベルチェック</h3>
+                    <p>まずは実力診断テストで、現在のレベルと弱点を把握します。</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <h3>カリキュラム作成</h3>
+                    <p>診断結果に基づき、あなただけの最適学習プランを自動生成。</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <h3>学習＆フィードバック</h3>
+                    <p>問題を解き、解説で理解を深めるサイクルを繰り返します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">受講生の声</h2>
+            <div class="testimonial-card">
+                <p>「独学では限界を感じていましたが、このアプリのおかげで体系的に学ぶことができました。特に解説の分かりやすさは素晴らしいです。」</p>
+                <div class="user-info">
+                    <strong>30代 男性・メーカー勤務</strong>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>「自分のペースで進められるのが良かったです。苦手な分野を重点的に対策できたので、効率よくスコアアップできました。」</p>
+                <div class="user-info">
+                    <strong>20代 女性・金融機関勤務</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 GMAP Academy. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#">利用規約</a>
+                <a href="#">プライバシーポリシー</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

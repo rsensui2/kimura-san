@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMAP試験対策問題集アプリ | 合格への最短ルート</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0056b3; /* 信頼感のある青 */
+            --accent-color: #f39c12; /* ゴールドに近い黄色 */
+            --text-color: #333333;
+            --bg-color: #ffffff;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-color);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .cta-btn-header {
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%); /* 落ち着いたグラデーション */
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .hero-sub {
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+            color: #555;
+        }
+
+        .cta-btn-hero {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,86,179,0.3);
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .cta-btn-hero:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 15px auto 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* Problem Section */
+        .problem {
+            background-color: var(--light-bg);
+            padding: 80px 0;
+        }
+
+        .problem-list {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .problem-item {
+            background: #fff;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .check-icon {
+            color: #e74c3c;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+        }
+
+        .testimonial-card {
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">GMAP Master</div>
+            <a href="#" class="cta-btn-header">無料デモを試す</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <span class="hero-sub">いつでも、どこでも、誰もが——。</span>
+            <h1>スキマの5分が、<br>未来を変える学びになる。</h1>
+            <p>GMAP試験対策の決定版。スマホひとつで合格への最短ルートを。</p>
+            <a href="#" class="cta-btn-hero">今すぐ学習を始める</a>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="container">
+            <h2 class="section-title">こんなお悩みありませんか？</h2>
+            <ul class="problem-list">
+                <li class="problem-item"><span class="check-icon">✔</span> 忙しくて机に向かう時間がない</li>
+                <li class="problem-item"><span class="check-icon">✔</span> 重い参考書を持ち歩きたくない</li>
+                <li class="problem-item"><span class="check-icon">✔</span> 自分の弱点がどこかわからない</li>
+                <li class="problem-item"><span class="check-icon">✔</span> 試験直前まで対策できていない</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">GMAP Masterが選ばれる3つの理由</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>スマホ完結の学習体験</h3>
+                    <p>通勤中や休憩時間など、スキマ時間を有効活用。PCでもスマホでも、デバイスを選ばず学習できます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>即時採点＆解説</h3>
+                    <p>問題を解いたその場で採点結果と詳しい解説を表示。わからないを放置せず、その場で理解を深められます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>学習データの可視化</h3>
+                    <p>進捗状況や正答率をグラフで確認。自分の弱点を客観的に把握し、効率的な学習計画を立てられます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">利用者の声</h2>
+            <div class="testimonial-card">
+                <p>「仕事が忙しく勉強時間が取れませんでしたが、このアプリのおかげで通勤時間を有効に使えました。無事合格できました！」</p>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <div>
+                        <strong>30代 男性</strong><br>
+                        <span>商社勤務</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>「解説が丁寧で分かりやすいです。間違えた問題だけを復習できる機能がとても便利でした。」</p>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <div>
+                        <strong>20代 女性</strong><br>
+                        <span>IT企業勤務</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 GMAP Master Project. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#">利用規約</a>
+                <a href="#">プライバシーポリシー</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

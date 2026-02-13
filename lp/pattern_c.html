@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMAPサクサク問題集 | 5分で合格力アップ！</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fff9e6; /* クリーム色 */
+            --primary-color: #ff9f43; /* ポップなオレンジ */
+            --secondary-color: #2ecc71; /* 明るい緑 */
+            --text-color: #5d4037; /* 焦げ茶色 */
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        /* Decorative Shapes */
+        .shape {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        .circle {
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        .square {
+            transform: rotate(15deg);
+            background-color: var(--secondary-color);
+            border-radius: 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 0 #fff;
+        }
+
+        .btn-header {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 0 #27ae60;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .btn-header:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 0 100px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            line-height: 1.3;
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, #ffeb3b 60%);
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .hero-img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        .cta-big {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 800;
+            padding: 20px 60px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 6px 0 #e67e22;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .cta-big:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-big:active {
+            transform: scale(1.05) translateY(6px);
+            box-shadow: none;
+        }
+
+        /* Steps */
+        .steps {
+            background-color: #fff;
+            padding: 60px 0;
+            border-radius: 30px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .step-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .step-item {
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .step-num {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background-color: var(--secondary-color);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .step-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Cheering */
+        .cheering {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .cheering-box {
+            background-color: #ffecb3;
+            border: 4px dashed var(--primary-color);
+            padding: 40px;
+            border-radius: 20px;
+            display: inline-block;
+            max-width: 600px;
+        }
+
+        .cheering-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .step-list {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shape circle" style="top: -50px; left: -50px; width: 200px; height: 200px;"></div>
+    <div class="shape square" style="top: 100px; right: -50px; width: 150px; height: 150px;"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">GMAPサクサク</div>
+            <a href="#" class="btn-header">ログイン</a>
+        </header>
+
+        <section class="hero">
+            <h1>スキマ時間で<br><span class="highlight">サクッと合格！</span></h1>
+            <p>
+                電車の中でも、お風呂上がりでも。<br>
+                スマホひとつでGMAP対策ができちゃうアプリ。
+            </p>
+            <a href="#" class="cta-big">無料で始める！</a>
+        </section>
+
+        <section class="steps">
+            <h2 class="section-title">使い方はカンタン 3ステップ</h2>
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <h3>アプリを開く</h3>
+                    <p>面倒な登録なしで、<br>すぐに始められます。</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <h3>ポチポチ解く</h3>
+                    <p>1問1答形式だから、<br>ゲーム感覚で進められる！</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <h3>解説を読む</h3>
+                    <p>「なるほど！」がわかる<br>丁寧な解説付き。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cheering">
+            <div class="cheering-box">
+                <h2>「勉強しなきゃ...」を<br>「ちょっとやろうかな？」に。</h2>
+                <p>
+                    重い参考書はもういらない。<br>
+                    あなたの毎日に、無理なく続く学習習慣を。<br>
+                    一緒に合格を目指しましょう！
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Made with ❤️ for GMAP Learners.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

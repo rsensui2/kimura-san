@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMAP試験対策問題集アプリ - 木村さん向け共有ポータル</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #818CF8;
+            --primary-dark: #3730A3;
+            --doc-color: #0EA5E9;
+            --lp-color: #10B981;
+            --mock-color: #F59E0B;
+            --notebook-color: #8B5CF6;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #1E293B;
+            --text-muted: #64748B;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title.doc { border-color: var(--doc-color); }
+        .section-title.lp { border-color: var(--lp-color); }
+        .section-title.mock { border-color: var(--mock-color); }
+        .section-title.notebook { border-color: var(--notebook-color); }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .card-thumb {
+            aspect-ratio: 16 / 10;
+            background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-thumb .icon-placeholder {
+            width: 64px;
+            height: 64px;
+            opacity: 0.5;
+        }
+
+        .card-thumb.doc { background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%); }
+        .card-thumb.lp { background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%); }
+        .card-thumb.mock { background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); }
+        .card-thumb.notebook { background: linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%); }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text);
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .card-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            background: #E2E8F0;
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GMAP試験対策問題集アプリ</h1>
+        <p>木村さん向け 提案資料・モック・LP 共有ポータル</p>
+    </header>
+
+    <main>
+        <!-- ドキュメント -->
+        <section class="section">
+            <h2 class="section-title doc">📄 ドキュメント</h2>
+            <div class="card-grid">
+                <a href="docs/Executive_Summary.md" class="card" target="_blank">
+                    <div class="card-thumb doc">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">エグゼクティブサマリー</div>
+                        <div class="card-desc">全体概要・背景・提案内容・期待効果</div>
+                        <span class="card-badge">Markdown</span>
+                    </div>
+                </a>
+                <a href="docs/Service_Overview.md" class="card" target="_blank">
+                    <div class="card-thumb doc">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">サービスの概要</div>
+                        <div class="card-desc">サービスコンセプト・ターゲット・主要機能</div>
+                        <span class="card-badge">Markdown</span>
+                    </div>
+                </a>
+                <a href="docs/Business_Model.md" class="card" target="_blank">
+                    <div class="card-thumb doc">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">ビジネスモデル</div>
+                        <div class="card-desc">収益モデル・オプション比較</div>
+                        <span class="card-badge">Markdown</span>
+                    </div>
+                </a>
+                <a href="docs/Technical_Specification.md" class="card" target="_blank">
+                    <div class="card-thumb doc">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">技術仕様・実装計画</div>
+                        <div class="card-desc">技術スタック・モック画面・成果物</div>
+                        <span class="card-badge">Markdown</span>
+                    </div>
+                </a>
+                <a href="docs/Project_Schedule.md" class="card" target="_blank">
+                    <div class="card-thumb doc">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">プロジェクトスケジュール</div>
+                        <div class="card-desc">フェーズ・タスク・目安期間</div>
+                        <span class="card-badge">Markdown</span>
+                    </div>
+                </a>
+                <a href="docs/README.md" class="card" target="_blank">
+                    <div class="card-thumb doc">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">ドキュメント README</div>
+                        <div class="card-desc">資料一覧・推奨読了順序</div>
+                        <span class="card-badge">Markdown</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- LP -->
+        <section class="section">
+            <h2 class="section-title lp">🌐 ランディングページ（LP）</h2>
+            <div class="card-grid">
+                <a href="lp/pattern_a.html" class="card" target="_blank">
+                    <div class="card-thumb lp">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Pattern A</div>
+                        <div class="card-desc">落ち着いた青系デザイン</div>
+                        <span class="card-badge">HTML</span>
+                    </div>
+                </a>
+                <a href="lp/pattern_a_v2.html" class="card" target="_blank">
+                    <div class="card-thumb lp">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Pattern A v2</div>
+                        <div class="card-desc">パターンAの改良版</div>
+                        <span class="card-badge">HTML</span>
+                    </div>
+                </a>
+                <a href="lp/pattern_a_v3.html" class="card" target="_blank">
+                    <div class="card-thumb lp">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Pattern A v3</div>
+                        <div class="card-desc">パターンAの改良版</div>
+                        <span class="card-badge">HTML</span>
+                    </div>
+                </a>
+                <a href="lp/pattern_a_v4.html" class="card" target="_blank">
+                    <div class="card-thumb lp">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Pattern A v4</div>
+                        <div class="card-desc">パターンAの改良版</div>
+                        <span class="card-badge">HTML</span>
+                    </div>
+                </a>
+                <a href="lp/pattern_b.html" class="card" target="_blank">
+                    <div class="card-thumb lp">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Pattern B</div>
+                        <div class="card-desc">GMAP Master - ダークモダン</div>
+                        <span class="card-badge">HTML</span>
+                    </div>
+                </a>
+                <a href="lp/pattern_c.html" class="card" target="_blank">
+                    <div class="card-thumb lp">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Pattern C</div>
+                        <div class="card-desc">GMAPサクサク問題集 - ポップ</div>
+                        <span class="card-badge">HTML</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- モック -->
+        <section class="section">
+            <h2 class="section-title mock">📱 スマホアプリモック</h2>
+            <div class="card-grid">
+                <a href="mock/index.html" class="card" target="_blank">
+                    <div class="card-thumb mock">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">アプリモック</div>
+                        <div class="card-desc">問題一覧・解答・採点・解説のUI</div>
+                        <span class="card-badge">HTML</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- NotebookLM -->
+        <section class="section">
+            <h2 class="section-title notebook">🎬 NotebookLM 成果物</h2>
+            <div class="card-grid">
+                <a href="notebooklm/unnamed%20(17).jpg" class="card" target="_blank">
+                    <div class="card-thumb notebook">
+                        <img src="notebooklm/unnamed%20(17).jpg" alt="NotebookLM 画像">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">NotebookLM 画像</div>
+                        <div class="card-desc">NotebookLMで作成したビジュアル</div>
+                        <span class="card-badge">JPG</span>
+                    </div>
+                </a>
+                <a href="notebooklm/GMAP_App_Development_Strategy.pdf" class="card" target="_blank">
+                    <div class="card-thumb notebook">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2.5h-2v-2h2v2zm2-2.5c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v1z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">GMAP App Development Strategy</div>
+                        <div class="card-desc">アプリ開発戦略 PDF</div>
+                        <span class="card-badge">PDF</span>
+                    </div>
+                </a>
+                <a href="notebooklm/GMAP_Prep_The_New_Standard.pdf" class="card" target="_blank">
+                    <div class="card-thumb notebook">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">GMAP Prep - The New Standard</div>
+                        <div class="card-desc">新しい標準のGMAP対策 PDF</div>
+                        <span class="card-badge">PDF</span>
+                    </div>
+                </a>
+                <a href="notebooklm/GMAPアプリ開発をモックから始める理由.m4a" class="card" target="_blank">
+                    <div class="card-thumb notebook">
+                        <svg class="icon-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">GMAPアプリ開発をモックから始める理由</div>
+                        <div class="card-desc">NotebookLM オーディオ</div>
+                        <span class="card-badge">M4A</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        GMAP試験対策問題集アプリ 提案資料ポータル &middot; 木村さん向け共有用
+    </footer>
+</body>
+</html>

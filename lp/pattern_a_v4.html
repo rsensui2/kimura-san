@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMAP Smart | 効率的な学習を、すべての人に</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #37474f; /* ブルーグレー */
+            --accent-color: #ff5252; /* ビビッドな赤 */
+            --text-color: #263238;
+            --bg-color: #ffffff;
+            --light-bg: #eceff1;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #fcfcfc;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.02em;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+            margin-right: 5px;
+        }
+
+        .cta-btn-header {
+            background-color: var(--text-color);
+            color: #fff;
+            padding: 10px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .cta-btn-header:hover {
+            background-color: #000;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: #546e7a;
+        }
+
+        .hero-image {
+            flex: 1;
+            background-color: var(--light-bg);
+            height: 400px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b0bec5;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .cta-btn-hero {
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 20px rgba(255, 82, 82, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+
+        .cta-btn-hero:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(255, 82, 82, 0.4);
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 0;
+            background-color: var(--light-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 60px;
+            color: var(--text-color);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            background-color: #ffebee;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #546e7a;
+            line-height: 1.8;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 80px 0;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .stat-item p {
+            color: #78909c;
+            font-weight: 700;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #fff;
+            color: var(--text-color);
+            padding: 60px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: #546e7a;
+            margin-left: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 0;
+            }
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            .hero-image {
+                width: 100%;
+                height: 250px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .footer-links a {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo"><span>●</span> GMAP Smart</div>
+            <a href="#" class="cta-btn-header">無料ではじめる</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container" style="display: flex; flex-direction: inherit; align-items: center; width: 100%;">
+            <div class="hero-text">
+                <h1>最短距離で、<br>最高の結果を。</h1>
+                <p>データに基づいた学習メソッドで、あなたのGMAP対策をスマートに。無駄を省き、本質的な実力を養成します。</p>
+                <a href="#" class="cta-btn-hero">今すぐ体験する</a>
+            </div>
+            <div class="hero-image">
+                App UI Image
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>92%</h3>
+                    <p>合格率</p>
+                </div>
+                <div class="stat-item">
+                    <h3>15m</h3>
+                    <p>平均学習時間</p>
+                </div>
+                <div class="stat-item">
+                    <h3>30k+</h3>
+                    <p>累計ユーザー</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Smart Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>最適化された出題</h3>
+                    <p>独自のアルゴリズムが、あなたの苦手分野を特定。今解くべき問題を自動でレコメンドします。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>スキマ時間活用</h3>
+                    <p>1問1分から取り組める設計。移動中や待ち時間を、有意義な学習時間に変えます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>成長の可視化</h3>
+                    <p>学習の進捗と実力の推移をダッシュボードで確認。モチベーション維持をサポートします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div>&copy; 2026 GMAP Smart.</div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
