@@ -1,0 +1,10 @@
+{
+  "name": "kimura-san-portal",
+  "private": true,
+  "scripts": {
+    "screenshots": "node scripts/generate-screenshots.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^23.0.0"
+  }
+}

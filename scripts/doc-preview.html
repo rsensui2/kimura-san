@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      width: 640px;
+      height: 400px;
+      background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .title { font-size: 1.5rem; font-weight: 700; color: #1E293B; }
+    .subtitle { font-size: 0.9rem; color: #64748B; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">📄</div>
+    <div class="title" id="title">Document</div>
+    <div class="subtitle" id="subtitle">Markdown</div>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    document.getElementById('title').textContent = params.get('title') || 'Document';
+    document.getElementById('subtitle').textContent = params.get('subtitle') || 'Markdown';
+  </script>
+</body>
+</html>
